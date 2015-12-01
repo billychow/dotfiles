@@ -18,6 +18,13 @@
 [difftool]
 	prompt = false
 
+[difftool "sourcetree"]
+    cmd = /usr/local/bin/bcomp $LOCAL $REMOTETE
+    path = 
+[mergetool "sourcetree"]
+    cmd = /usr/local/bin/bcomp $LOCAL $REMOTE $BASE $MERGED
+    trustExitCode = true
+
 [merge]
 	tool = vimdiff
 	# Include summaries of merged commits in newly created merge commit messages
