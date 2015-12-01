@@ -1,9 +1,31 @@
 [user]
-    name = Billy Chow
+    name = Billy
     email = billy@dreammx.com
 
 [core]
     excludesfile = ~/.gitignore
+
+[color]
+	# Use colors in Git commands that are capable of colored output when
+	# outputting to the terminal. (This is the default setting in Git ≥ 1.8.4.)
+	ui = auto
+
+[diff]
+    tool = vimdiff
+	# Detect copies as well as renames
+	renames = copies
+
+[difftool]
+	prompt = false
+
+[merge]
+	tool = vimdiff
+	# Include summaries of merged commits in newly created merge commit messages
+	log = true
+
+[diff "bin"]
+	# Use `hexdump` to diff binary files
+	textconv = hexdump -v -C
 
 [alias]
     st = status
@@ -87,47 +109,3 @@
 		fi \
 	}; f"
 
-[color]
-
-	# Use colors in Git commands that are capable of colored output when
-	# outputting to the terminal. (This is the default setting in Git ≥ 1.8.4.)
-	ui = auto
-
-[color "branch"]
-
-	current = yellow reverse
-	local = yellow
-	remote = green
-
-[color "diff"]
-
-	meta = yellow bold
-	frag = magenta bold # line info
-	old = red # deletions
-	new = green # additions
-
-[color "status"]
-
-	added = yellow
-	changed = green
-	untracked = cyan
-
-[diff]
-
-	# Detect copies as well as renames
-	renames = copies
-
-[merge]
-	tool = vimdiff
-
-[difftool]
-	prompt = false
-
-[diff "bin"]
-	# Use `hexdump` to diff binary files
-	textconv = hexdump -v -C
-
-[merge]
-
-	# Include summaries of merged commits in newly created merge commit messages
-	log = true
