@@ -1,0 +1,47 @@
+diff --git a/index.htm b/index.htm
+index 2d88ed7..c490abf 100755
+--- a/index.htm
++++ b/index.htm
+@@ -98,6 +98,26 @@
+ 	end
+ -%>
+ 
++<%
++local sys = require "luci.sys"
++    local arpcache = { }
++    
++    -- collect MAC hints (mac is already upper, but be robust)
++    -- this reads arp cache, /etc/ethers, dhcp leases, etc 
++    sys.net.mac_hints(function(mac,name) arpcache[mac:upper()] = name end)
++    -- add IP address, if entry is just a name (or name, if just an IP addr)
++    sys.net.arptable(function(e)
++         local m = e["HW address"]:upper()
++         local s = arpcache[m]
++         if s and not s:match("^[0-9.]+$") then
++             arpcache[m] = "%s [%s]" %{ s, e["IP address"] }
++         elseif not s then -- possibly if it just appeared in the arp cache
++            arpcache[m] = "%s [%s]" %{ nixio.getnameinfo(e["IP address"]), e["IP address"] }
++         end
++     end)
++    -- local system, model = luci.sys.sysinfo()
++-%>
++
+ <%+header%>
+ 
+ <script type="text/javascript" src="<%=resource%>/cbi.js"></script>
+@@ -463,6 +483,7 @@
+ 						icon, assoclist[i].signal, assoclist[i].noise
+ 					);
+ 
++					tr.insertCell(-1).innerHTML = arptable[assoclist[i].bssid] ? arptable[assoclist[i].bssid] : '?';
+ 					tr.insertCell(-1).innerHTML = assoclist[i].bssid;
+ 
+ 					tr.insertCell(-1).innerHTML = String.format(
+@@ -675,6 +696,7 @@
+ 	<table class="cbi-section-table" id="wifi_assoc_table">
+ 		<tr class="cbi-section-table-titles">
+ 			<th class="cbi-section-table-cell">&#160;</th>
++			<th class="cbi-section-table-cell"><%:Hostname%></th>
+ 			<th class="cbi-section-table-cell"><%:MAC-Address%></th>
+ 			<th class="cbi-section-table-cell"><%:Network%></th>
+ 			<th class="cbi-section-table-cell"><%:Signal%></th>
