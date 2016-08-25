@@ -44,7 +44,7 @@ ZSH_THEME="robbyrussell"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(osx brew git git-extras git-flow github node npm python pip sublime vundle)
+plugins=(sudo osx brew history git git-extras gem pip npm nvm composer thefuck)
 
 # User configuration
 
@@ -78,6 +78,9 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
+export PATH=/usr/local/sbin:$PATH
+export PATH=~/.composer/vendor/bin:$PATH
+
 export PATH="$HOME/.rbenv/bin:$PATH"
 eval "$(rbenv init -)"
 
@@ -90,4 +93,3 @@ export NVM_DIR="$HOME/.nvm"
 
 export PATH="$HOME/.phpenv/bin:$PATH"
 eval "$(phpenv init -)"
-
